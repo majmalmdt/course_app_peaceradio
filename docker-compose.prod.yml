@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+
+  coursesapp-staging:
+    container_name: courseapp-staging
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - '1337:80'
