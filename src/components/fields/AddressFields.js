@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import CustomTextField from './CustomTextField';
-const AddressField = () => {
-  const [presentAddress, setPresentAddress] = useState('');
-  const [isSameAddress, setIsSameAddress] = useState(false);
+const AddressField = ({isSameAddress,address}) => {
+  const [presentAddress, setPresentAddress] = useState(address? address:'');
 
 
   const handlePresentAddressChange = (event) => {
@@ -12,7 +11,6 @@ const AddressField = () => {
 
   return (
     <>
-      
       <CustomTextField
         label="Present Address"
         placeholder="ഇപ്പോൾ താമസിക്കുന്ന സ്ഥലം"

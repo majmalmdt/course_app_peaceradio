@@ -190,7 +190,7 @@ export default function EditProfile() {
           <CustomTextField size="small" label="Enter Age" placeholder="വയസ്സ്" onChange={(value) => handleInputChange(value, "age")} value={personalData.age} />
         </NameField>
         <NameField>
-          <DOBField onChange={handleInputChange} value={personalData.email} />
+          <DOBField onChange={handleInputChange} value={personalData.dob} ageValue={personalData.age} />
         </NameField>
         <NameField>
           <DistrictField onChange={handleInputChange} value={personalData.district_id} />

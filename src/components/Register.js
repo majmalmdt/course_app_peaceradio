@@ -205,9 +205,10 @@ const EyeField = styled(FormControl)`
                 return
               }
         }
+        console.log(personalData)
         if(showAllField===2){
           if(personalData.name&& personalData.age&& personalData.district_id&&personalData.sex&& personalData.dob&& personalData.qualification
-            &&personalData.ward&& personalData.address&& personalData.present_address&& personalData.defect_eye &&personalData.panchayat_id
+            &&personalData.ward&& personalData.address&& personalData.present_address &&personalData.panchayat_id
           ){
             const result =await register(personalData,mobileData,setMessage,setOpen)
           if(result?.status){
@@ -248,17 +249,19 @@ const EyeField = styled(FormControl)`
     }
 
     useEffect(()=>{
+      console.log(personalData.age)
         if(personalData.age>0)
        { const today = new Date();
         const birthYear = today.getFullYear() - personalData.age;
-        handleInputChange(`${birthYear}-01-01`,"dob")}
-    },[personalData.age, personalData.dob])
+        handleInputChange(`${birthYear}-01-01`,"dob")
+      }
+    },[personalData.age])
 
     useEffect(() => {
       if (sameAddress) {
         handleInputChange(personalData.address, "present_address", true);
       } else if(!sameAddress){
-        handleInputChange("", "present_address", true);
+        handleInputChange(personalData.present_address, "present_address", true);
       }
       else if (personalData.address !== personalData.present_address) {
         setSameAddress(false); // Reset when addresses are not the same
@@ -286,10 +289,11 @@ const EyeField = styled(FormControl)`
         <CustomTextField type="email" size="small" label="E-mail Address" placeholder="ഇമെയിൽ ഐഡി നൽകുക" onChange={(value)=>handleInputChange(value,"email")} value={personalData.email} />
       </NameField>
       <NameField>
-        <CustomTextField size="small" label="Enter Age" placeholder="വയസ്സ്" onChange={(value)=>{handleInputChange(value,"age")}} value={personalData.age} />
+        <CustomTextField size="small" label="Enter Age" placeholder="വയസ്സ്" onChange={(value)=>{handleInputChange(value,"age")
+        }} value={personalData.age} />
       </NameField>
       <NameField>
-      <DOBField onChange={handleInputChange} value={personalData.dob}/>
+      <DOBField onChange={handleInputChange} value={personalData.dob} ageValue={personalData.age} />
       </NameField>
       <NameField>
         <DistrictField onChange={handleInputChange} value={personalData.district_id} />
@@ -309,7 +313,8 @@ const EyeField = styled(FormControl)`
         fontSize: '16px', // Adjust the font size for the input text and placeholder
         fontFamily: '"Noto Sans Malayalam", sans-serif', // Use an inbuilt Malayalam font
         }}>Same as present address</label>
-      <Checkbox checked={sameAddress} onChange={()=>setSameAddress(!sameAddress)} />
+      <Checkbox checked={sameAddress} onChange={()=>{setSameAddress(!sameAddress)
+      }} />
         </EyeField>
       <NameField>
         <CustomTextField type="number" size="small" label="Pincode" placeholder="പിൻകോഡ്" onChange={(value)=>handleInputChange(value,"pin")} value={personalData.pin} />

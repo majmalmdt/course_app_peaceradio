@@ -5,15 +5,20 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateField } from '@mui/x-date-pickers/DateField';
 
-const DOBField = ({ onChange, value }) => {
+const DOBField = ({ onChange, value, ageValue }) => {
   const [dob, setDOB] = useState(value || '2000-01-01');
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState(ageValue || 0);
 
   // Sync initial value to state if passed from props
-
+  useEffect(() => {
+    if (value) {
+      setDOB(value);
+    }
+  }, [value]);
 
   // Calculate age based on dob change
   useEffect(() => {
+    console.log(value)
     if (dob && dob !== '2000-01-01') {
       const birthDate = dayjs(dob);
       const today = dayjs();

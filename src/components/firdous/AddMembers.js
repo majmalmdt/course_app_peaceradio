@@ -149,7 +149,7 @@ export default function AddMembers() {
         <CustomTextField size="small" label="Enter Age" placeholder="വയസ്സ്" onChange={(value)=>handleInputChange(value,"age")} value={personalData.age} />
       </NameField>
       <NameField>
-      <DOBField onChange={handleInputChange} value={personalData.dob}/>
+      <DOBField onChange={handleInputChange} value={personalData.dob} ageValue={personalData.age}/>
       </NameField>
       <NameField>
         <Qualification onChange={(value)=>handleInputChange(value,"qualification")} value={personalData.qualification} age={personalData.age}/>
