@@ -41,7 +41,7 @@ function NavBar() {
     // Global function for back button press
     window.fnPressedBackButton = () => {
       const currentPage = document.getElementById("currentPage")?.value || "0";
-      
+      console.log("Current page:", currentPage);
       if (currentPage === "0") {
         handleAndroidBack();
       } else if (currentPage === "1") {
@@ -83,9 +83,7 @@ function NavBar() {
                 className=""
                 color="inherit"
                 aria-label="open drawer"
-                onClick={() => {
-                  history("/");
-                }}
+                onClick={window.fnPressedBackButton}
               >
                 <ArrowBackIcon />
               </IconButton>
