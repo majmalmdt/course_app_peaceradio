@@ -12,6 +12,7 @@ import DistrictField from "./fields/DistrictField";
 import { UserContext } from "../contexts/UserContext";
 import addMember from "../utils/addMember";
 import homePage from "../utils/homePage";
+import deleteMember from "../utils/deleteMember";
 import { useNavigate } from 'react-router-dom';
 import Checkbox from '@mui/material/Checkbox';
 
@@ -113,13 +114,10 @@ export default function EditProfile() {
       // Handle error
     }
   }
-  const deleteMember =async ()=>{
+  const deleteMemberHandler =async ()=>{
     const res = await deleteMember(user?.selectedUser?.id);
     if (res.status) {
-      const newUsersRes = await homePage();
-      const selectedUser = user?.selectedUser?.id ? newUsersRes.data.members.find((member) => member.id === Number(user?.selectedUser?.id)) : newUsersRes.data.members[0];
-
-      setUser({ memberList: newUsersRes.data.members, selectedUser:selectedUser });
+      setUser({ ...user, selectedUser: user.memberList[0] })
       navigate("/");
     } else {
       // Handle error
@@ -246,7 +244,7 @@ export default function EditProfile() {
         <div style={{display:"flex",justifyContent: "space-between"}}>
         <Button variant="contained" style={{ backgroundColor: "rgb(148 233 213)", color: "black", margin: "1rem 10%", fontSize: "13px",     textTransform: "none", }} onClick={onClick}
         >Edit Profile</Button>
-        {user.selectedUser.parent_flag!=="Y" &&<Button variant="contained" style={{ backgroundColor: "rgb(255 0 0)", color: "black", margin: "1rem 10%", fontSize: "13px",     textTransform: "none", }} onClick={deleteMember}
+        {user.selectedUser.parent_flag!=="Y" &&<Button variant="contained" style={{ backgroundColor: "rgb(255 0 0)", color: "black", margin: "1rem 10%", fontSize: "13px",     textTransform: "none", }} onClick={deleteMemberHandler}
         >Delete Member</Button>}
         </div>
       </Container>

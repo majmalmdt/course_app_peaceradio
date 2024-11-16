@@ -76,14 +76,16 @@ function NavBar() {
     <>
       <AppBar position="fixed" className={classes.appbar}>
         <Toolbar>
-          {pathname !== "/" ? (
+          {pathname !== "/" && pathname !== "/login" ? (
             <>
               <IconButton
                 edge="start"
                 className=""
                 color="inherit"
                 aria-label="open drawer"
-                onClick={window.fnPressedBackButton}
+                onClick={() => {
+                  history(-1);
+                }}
               >
                 <ArrowBackIcon />
               </IconButton>

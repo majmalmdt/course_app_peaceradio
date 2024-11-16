@@ -4,7 +4,7 @@ const deleteMember = async (userId) => {
     try{
     let data = new FormData()
     const res = await axios({
-        method: "post",
+        method: "get",
         url:  `${config.API_URL}${config.DELETE_MEMBER}/${userId}`,
         data: data,
         headers: { 

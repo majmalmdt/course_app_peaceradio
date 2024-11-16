@@ -13,7 +13,9 @@ const courseEntroll = async ( courseId, userId) => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`, 
          },
     })
+    console.log(res.data);
     return res.data;
+    
 }
 
 export default courseEntroll;
