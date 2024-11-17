@@ -17,6 +17,7 @@ import React from 'react';
 import { IconButton  } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import { ButtonBase } from '@mui/material';
+import Popup from "./firdous/Popup";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +51,9 @@ export default function CoursesList () {
   const [severity, setSeverity]=useState("");
   const [ courses, setCourses ] = useState([]);
   const [visibleGroups, setVisibleGroups] = useState({});
+  const [open, setOpen] = useState(false);
+  const [isSuccess,setIsSuccess] = useState(false);
+
 
   const getCourseList= async () =>{
     if (user &&user.selectedUser && user.selectedUser.id) {
@@ -68,14 +72,15 @@ export default function CoursesList () {
 }, [user]);
   const handleEnroll =  async (courseInfo) =>{
 
-    const res = await courseEnroll(courseInfo.id, user.selectedUser.id);
-    if (res.status) {
+    const res = await courseEnroll(courseInfo.id, user.selectedUser.id,setMessage,setOpen);
+    if (res.status===true) {
       getCourseList()
+      setIsSuccess(true)
       setMessage(`You Enrolled to ${courseInfo.course_name}`)
       setSeverity("success")
-    }else{
-      setMessage(res.message)
-      setSeverity("error")
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
     }
   }
   const toggleVisibility = (courseTypeName) => {
@@ -112,9 +117,9 @@ export default function CoursesList () {
   }, {});
   return (courses.length > 0 ? 
     <Container m={2} className={classes.mainRoot}>
-      {message===""?<></>:<Alert variant="filled" severity={severity}>
+      {isSuccess?<Alert variant="filled" severity={severity}>
         {message}
-      </Alert>} 
+      </Alert>:<></>} 
       <Container m={2}>
         <motion.div initial="hidden" animate="visible" variants={listItemYVariants}>
           <Typography className={classes.texth5} variant="h5">Enrolled Courses</Typography>
@@ -249,7 +254,8 @@ export default function CoursesList () {
       ))}
     </List> */}
       
-      
+      <Popup heading={"PeaceRadio"} message={message} open={open} setOpen={setOpen} noClose={true}/>
+
     </Container> : 
     <Box sx={{ display: 'flex' }}  
         display="flex"

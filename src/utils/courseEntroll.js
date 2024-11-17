@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from './config.json';
-const courseEntroll = async ( courseId, userId) => {
+const courseEntroll = async ( courseId, userId,setMessage,setOpen) => {
+    try{
     let data = new FormData();
     data.append('course_candidate_id', userId);
     data.append('course_master_id', courseId);
@@ -15,6 +16,14 @@ const courseEntroll = async ( courseId, userId) => {
     })
     console.log(res.data);
     return res.data;
+}
+catch(error){
+    if(error.response.status!==200){
+        setMessage(error.response.data.message)
+        setOpen(true)
+    }
+    return error.response;
+}
     
 }
 

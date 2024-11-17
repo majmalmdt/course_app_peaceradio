@@ -17,7 +17,8 @@ export const forgotPassword = async (phone,countryCode,setMessage,setOpen) => {
 
     axios.request(apiCall)
     .then((response) => {
-        setMessage(response.data.data);
+
+        setMessage(response.data.message);
         setOpen(true);
     })
     .catch((error) => {

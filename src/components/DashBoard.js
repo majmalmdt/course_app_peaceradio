@@ -17,6 +17,7 @@ import React from 'react';
 import { IconButton  } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import { ButtonBase } from '@mui/material';
+import Popup from "./firdous/Popup";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +56,8 @@ export default function DashBoard () {
   const classes = useStyles();
   const { user } = useContext(UserContext);
   const [message,setMessage]=useState("");
+  const [isSuccess,setIsSuccess] = useState(false);
+  const [open, setOpen] = useState(false);
   const [severity, setSeverity]=useState("");
   const [ courses, setCourses ] = useState([]);
   const [visibleGroups, setVisibleGroups] = useState({});
@@ -76,14 +79,15 @@ export default function DashBoard () {
 }, [user]);
   const handleEnroll =  async (courseInfo) =>{
 
-    const res = await courseEnroll(courseInfo.id, user.selectedUser.id);
-    if (res.status) {
+    const res = await courseEnroll(courseInfo.id, user.selectedUser.id,setMessage,setOpen);
+    if (res.status===true) {
       getCourseList()
+      setIsSuccess(true)
       setMessage(`You Enrolled to ${courseInfo.course_name}`)
       setSeverity("success")
-    }else{
-      setMessage(res.message)
-      setSeverity("error")
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
     }
   }
   const toggleVisibility = (courseTypeName) => {
@@ -118,6 +122,9 @@ export default function DashBoard () {
   }, {});
   return (courses.length > 0 ? 
     <Container m={2} className={classes.mainRoot}>
+        {isSuccess?<Alert variant="filled" severity={severity}>
+        {message}
+      </Alert>:<></>}
         <Typography className={classes.texth1} variant="h5">Dashboard</Typography>
       <Container m={2} className={classes.root3}>
       <motion.div initial="hidden" animate="visible" variants={listItemYVariants}>
@@ -221,6 +228,8 @@ export default function DashBoard () {
           )}
         </React.Fragment>
       ))}
+            <Popup heading={"PeaceRadio"} message={message} open={open} setOpen={setOpen} noClose={true}/>
+
     </List>
     </Container> : 
     <Box sx={{ display: 'flex' }}  
