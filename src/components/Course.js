@@ -64,7 +64,9 @@ function Course({ course, handleEnroll }) {
         </div>
         <ListItemSecondaryAction>
           {course.is_enrolled !== '0' ? (
+          
             <div className={classes.progressWrapper}>
+              {(!course?.course_end_time || (new Date(course?.course_end_time)>new Date(new Date()))) &&
               <div className={classes.svgIcon}>
                 <svg width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="50" cy="50" r="15" fill="#00A881">
@@ -74,7 +76,7 @@ function Course({ course, handleEnroll }) {
                   <circle cx="50" cy="50" r="15" fill="#00A881" />
                   <circle cx="50" cy="50" r="5" fill="#CCEEE6" />
                 </svg>
-              </div>
+              </div>}
               <CircularProgressWithLabel value={course.percentage} />
             </div>
           ) : (
