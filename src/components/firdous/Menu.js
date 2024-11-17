@@ -278,7 +278,7 @@ const Menu = (props) => {
           style={{ textTransform: 'none' }}
           onClick={() => handleFileDownload(courseWork.file_url)}
         >
-          Downloads
+          Download
         </Button>
       {/* </a> */}
 
