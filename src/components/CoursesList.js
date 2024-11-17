@@ -88,7 +88,7 @@ export default function CoursesList () {
     hidden: { opacity: 0, x: -20 },
     visible: { opacity: 1, x: 0 }
   };
-  const liveCourse= courses?.filter(course => course?.is_enrolled === '0' && !course?.course_end_time)
+  const liveCourse= courses?.filter(course => course?.is_enrolled === '0' && (!course?.course_end_time || (new Date(course?.course_end_time)>new Date(new Date()))))
   const enrolledCourses = courses?.filter(course => course?.is_enrolled !== '0' && !course?.end_date);
   const unEnrolledCourses = courses
   .filter(course => course?.is_enrolled === '0' && course?.course_end_time )
