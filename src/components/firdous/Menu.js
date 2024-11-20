@@ -640,15 +640,14 @@ const reviewRow = props.data.result?.review_mark.toFixed(2) > 0
 
 const htmlData = `
   <table class="tg" style="width: 100%; border-collapse: collapse; text-align: left; font-family: Arial, sans-serif; margin-top: 20px;">
-    <thead>
-      <tr>
-        <th class="tg-0lax" style=" color: black; padding: 10px; border: 1px solid #ddd;">ക്ലാസ് ടെസ്റ്റുകൾക്ക് ലഭിച്ച ആകെ മാർക്ക്</th>
-        <th class="tg-0lax" style=" color: black; padding: 10px; border: 1px solid #ddd;">${props.data.result?.class_test_mark.toFixed(2)}</th>
-      </tr>
-    </thead>
+ 
     <tbody>
       ${assignmentRow}
       ${reviewRow}
+       <tr>
+        <td class="tg-0lax" style=" color: black;padding: 10px; border: 1px solid #ddd;">ക്ലാസ് ടെസ്റ്റുകൾക്ക് ലഭിച്ച ആകെ മാർക്ക്</td>
+        <td class="tg-0lax" style=" color: black;padding: 10px; border: 1px solid #ddd;">${props.data.result?.class_test_mark.toFixed(2)}</td>
+      </tr>
       <tr>
         <td class="tg-0lax" style=" color: black;padding: 10px; border: 1px solid #ddd;">പൊതുപരീക്ഷയിലെ ആകെ മാർക്ക്</td>
         <td class="tg-0lax" style=" color: black;padding: 10px; border: 1px solid #ddd;">${props.data.result?.final_mark.toFixed(2)}</td>
@@ -667,8 +666,8 @@ const weighageHtml=`<h5>ക്ലാസ് ടെസ്റ്റുകൾക്�
     <table>
         <thead>
             <tr>
-                <th class="tg-0lax" style=" color: black; padding: 10px; border: 1px solid #ddd;">ക്ലാസ് ടെസ്റ്റുകൾക്ക് ലഭിച്ച ആകെ മാർക്ക്</th>
-                <th class="tg-0lax" style=" color: black; padding: 10px; border: 1px solid #ddd;">Scored / Total</th>
+                <td class="tg-0lax" style=" color: black; padding: 10px; border: 1px solid #ddd;">ക്ലാസ് ടെസ്റ്റുകൾക്ക് ലഭിച്ച ആകെ മാർക്ക്</td>
+                <td class="tg-0lax" style=" color: black; padding: 10px; border: 1px solid #ddd;">${props.data.result?.raw_class_test_mark.toFixed(2)} / ${props.data.result?.max_class_test_mark.toFixed(2)}</td>
             </tr>
         </thead>
         <tbody>

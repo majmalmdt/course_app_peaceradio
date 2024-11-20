@@ -356,7 +356,7 @@ const CourseHomeAccordion = () => {
                   dangerouslySetInnerHTML={{ __html: data.html }}
                 />   
                  <Button
-                      variant='contained' style={{ width: '25%', margin: '10px auto', textTransform: 'none', textAlign: "center" }} color='primary'
+                      variant='contained' style={{  margin: '10px', textTransform: 'none', textAlign: "center" }} color='primary'
                       onClick={() =>handleDownload(data.html)}>
                     
                       Download
