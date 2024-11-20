@@ -132,7 +132,7 @@ export default function CoursesList () {
             <motion.div variants={listItemXVariants} key={index}>
               <Course course={course} handleEnroll={handleEnroll}></Course>
             </motion.div>
-          ))): (<Typography variant="body2">താങ്കൾ ഇതുവരെ കോഴ്സുകളിൽ enroll ചെയ്തിട്ടില്ല. Enroll ചെയ്യുന്നതിന് അതാത് കോഴ്സുകൾക്ക് നേരെ നൽകിയിട്ടുള്ള "Enroll" ബട്ടൺ ക്ലിക് ചെയ്യുക. 
+          ))): (<Typography variant="body2">താങ്കൾ ഇതുവരെ കോഴ്സുകളിൽ enroll ചെയ്തിട്ടില്ല. Enroll ചെയ്യുന്നതിന് കോഴ്സ് ഓപ്ഷന് മുകളിൽ നിങ്ങളുടെ പേരിന് നേരെ ഉള്ള ബട്ടൺ ക്ലിക്ക് ചെയ്ത് അതിലെ Dashboard എന്ന ഭാഗത്ത് ക്ലിക്ക് ചെയ്യുക. ശേഷം Dashboard ൽ നിന്ന് അന്നൂർ ലൈഫ് കോഴ്സുകളിൽ നിന്ന് നിങ്ങൾക്ക് ഇഷ്ടമുള്ള കോഴ്സുകൾക്ക് നേരെയുള്ള Enroll എന്ന button ക്ലിക്ക് ചെയ്യുക. 
               </Typography>)}
         </motion.div>
       </List>
