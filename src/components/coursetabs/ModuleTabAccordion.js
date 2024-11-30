@@ -333,7 +333,7 @@ const ModuleTabAccordion = () => {
               return <Menu classes={classes} data={course} label="Feedback" fn={handleChange} abc={expanded} idd={"a"+index} />
             }
             if(cl.module_type==="certificate"){
-              return  <Menu classes={classes} label="Certificate" fn={handleChange} abc={expanded} idd={"a"+index} data={certificate} />
+              return  <Menu classes={classes} label="Certificate" fn={handleChange} abc={expanded} idd={"a"+index} data={course} />
 
             }
             
