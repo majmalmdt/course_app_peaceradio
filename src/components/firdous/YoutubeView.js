@@ -1,20 +1,53 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { IconButton, Box } from '@mui/material';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import {  Box } from '@mui/material';
 import ReactPlayer from 'react-player/youtube';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
+import { CourseContext } from '../../contexts/CourseContext';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import { ButtonGroup } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+  detailText: {
+    color: theme.palette.primary.dark,
+    whiteSpace: 'pre-line',
+  },
+  detailQuestionText: {
+    fontSize: theme.typography.pxToRem(12),
+    color: theme.palette.primary.dark,
+    whiteSpace: 'pre-line',
+  },
+  tabsAppBar: {
+    boxShadow: 'none',
+  },
+  tabNames: {
+    textTransform: 'none',
+  }
+}));
 const YouTubeDialog = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const navigate = useNavigate();
-  const { videoId } = useParams();
+  const { moduleId } = useParams();
   const playerRef = useRef(null);
+  const {course} = useContext(CourseContext);
+  const classes = useStyles();
+  const [fontSiz, setFontSiz] = useState(14)
+  const removeHtml = /(<([^>]+)>)/ig
+  const removeSlashNR = /(\r\n|\r|\n)+/g
+  const reference = course.modules.filter(item => item.module_id == moduleId)[0].reference
 
+  console.log(reference);
 
-  const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  const thumbnailUrl = `https://img.youtube.com/vi/${reference.class_video_link}/hqdefault.jpg`;
 
   useEffect(() => {
     setIsPlaying(false);
-  }, [videoId]);
+  }, [reference]);
 
   const handleThumbnailClick = () => {
     setIsPlaying(true);
@@ -35,7 +68,8 @@ const YouTubeDialog = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div>
+    <Box sx={{ width: '100%', marginTop: '4rem' }}>
       {!isPlaying ? (
         <Box
           sx={{
@@ -43,8 +77,8 @@ const YouTubeDialog = () => {
             width: '100%',
             cursor: 'pointer',
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            // justifyContent: 'center',
+            // alignItems: 'center',
           }}
           onClick={handleThumbnailClick}
         >
@@ -62,16 +96,25 @@ const YouTubeDialog = () => {
       ) : (
         <ReactPlayer
           ref={playerRef}
-          url={`https://www.youtube.com/watch?v=${videoId}`}
+          url={`https://www.youtube.com/watch?v=${reference.class_video_link}`}
           controls={true}
           playing={true}
           width="100%"
-          height="90vh" // Increased height
+          // height="90vh" // Increased height
           style={{ borderRadius: '8px', overflow: 'hidden', paddingTop: '20px' }}
           onClick={handleFullscreen}
         />
       )}
     </Box>
+    <div style={{ margin: '20px' }}>
+        <ButtonGroup variant="outlined" aria-label="outlined button group" style={{ float: 'right' }}>
+          <Button onClick={() => setFontSiz(fontSiz + 1)}>+</Button>
+          <Button onClick={() => setFontSiz(fontSiz - 1)}>-</Button>
+        </ButtonGroup>
+        <Typography className={classes.detailText} style={{ fontSize: `${fontSiz}px` }}>{reference?.reference_text? reference?.reference_text?.replace(removeHtml, '').replace(removeSlashNR, '$1'):"ഈ ക്ലാസിൻ്റെ റഫറൻസ് ഇപ്പോൾ ലഭ്യമല്ല"}</Typography>
+      </div>
+
+    </div>
   );
 };
 

@@ -79,7 +79,7 @@ function App() {
                 <Route path="/profile/edit/:userId" element={<EditProfile />} />
                 <Route path="/course/examPage/:courseId" element={<ExamPage/>}/>
                 <Route path='dashboard' element={<DashBoard />} />
-                <Route path="/course/video/:videoId" element={<YouTubeDialog />}/>
+                <Route path="/course/video/:moduleId" element={<YouTubeDialog />}/>
                   {/* <Route path="/membercourselist" element={<MemberCourseList />} />
                   <Route path="/somepage" element={<Somepage />} />
                   <Route path="/login" element={<LoginPage />} /> */}

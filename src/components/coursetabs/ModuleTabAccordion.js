@@ -23,15 +23,9 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import moduleTabFetch  from '../../utils/moduletab';
 import { UserContext } from '../../contexts/UserContext';
 import CardMedia from '@mui/material/CardMedia';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Dialog from '@mui/material/Dialog';
 import {  Button} from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 import getCertificate from '../../utils/certificate';
-import YouTubeModal from '../firdous/YoutubeView'
 import Popup from '../firdous/Popup';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -284,7 +278,7 @@ const ModuleTabAccordion = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={()=>handleVidOpen(cl.reference?.class_video_link)}
+          onClick={()=>handleVidOpen(cl?.module_id)}
         >
           <VideocamIcon />
         </Button>
