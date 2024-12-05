@@ -39,15 +39,14 @@ const YouTubeDialog = () => {
   const [fontSiz, setFontSiz] = useState(14)
   const removeHtml = /(<([^>]+)>)/ig
   const removeSlashNR = /(\r\n|\r|\n)+/g
-  const reference = course.modules.filter(item => item.module_id == moduleId)[0].reference
+  const module = course.modules.filter(item => item.module_id == moduleId)[0]
 
-  console.log(reference);
 
-  const thumbnailUrl = `https://img.youtube.com/vi/${reference.class_video_link}/hqdefault.jpg`;
+  const thumbnailUrl = `https://img.youtube.com/vi/${module.reference.class_video_link}/hqdefault.jpg`;
 
   useEffect(() => {
     setIsPlaying(false);
-  }, [reference]);
+  }, [module.reference]);
 
   const handleThumbnailClick = () => {
     setIsPlaying(true);
@@ -96,7 +95,7 @@ const YouTubeDialog = () => {
       ) : (
         <ReactPlayer
           ref={playerRef}
-          url={`https://www.youtube.com/watch?v=${reference.class_video_link}`}
+          url={`https://www.youtube.com/watch?v=${module.reference.class_video_link}`}
           controls={true}
           playing={true}
           width="100%"
@@ -107,11 +106,12 @@ const YouTubeDialog = () => {
       )}
     </Box>
     <div style={{ margin: '20px' }}>
+    <Typography style={{fontSize:"14px", fontWeight:"bold", marginBottom:"10px"}}>{module?.class_name}</Typography>
         <ButtonGroup variant="outlined" aria-label="outlined button group" style={{ float: 'right' }}>
           <Button onClick={() => setFontSiz(fontSiz + 1)}>+</Button>
           <Button onClick={() => setFontSiz(fontSiz - 1)}>-</Button>
         </ButtonGroup>
-        <Typography className={classes.detailText} style={{ fontSize: `${fontSiz}px` }}>{reference?.reference_text? reference?.reference_text?.replace(removeHtml, '').replace(removeSlashNR, '$1'):"ഈ ക്ലാസിൻ്റെ റഫറൻസ് ഇപ്പോൾ ലഭ്യമല്ല"}</Typography>
+        <Typography className={classes.detailText} style={{ fontSize: `${fontSiz}px` }}>{module.reference?.reference_text? module.reference?.reference_text?.replace(removeHtml, '').replace(removeSlashNR, '$1'):"ഈ ക്ലാസിൻ്റെ റഫറൻസ് ഇപ്പോൾ ലഭ്യമല്ല"}</Typography>
       </div>
 
     </div>

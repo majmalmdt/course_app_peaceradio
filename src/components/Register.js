@@ -129,6 +129,8 @@ const EyeField = styled(FormControl)`
     });
     const [sameAddress,setSameAddress]=useState(false);
     const [popupHeading,setPopupHeading]=useState('');
+    const [isDisabled, setIsDisabled] = useState(false);
+
     useMemo(async()=>{
       setWelcomeData(await welcomeAPI())},[])
 
@@ -137,6 +139,7 @@ const EyeField = styled(FormControl)`
       setExpanded(newExpanded ? panel : false);
     };
   
+ 
   // Function to hash the formatted time
   async function hashCurrentTime() {
       const formattedTime = "pe@ce6@234&^%!_d!0p"
@@ -168,8 +171,13 @@ const EyeField = styled(FormControl)`
     };
 
     const forgotPasswordHandler=()=>{
-        if(mobileData.mobile){
+        if(mobileData.mobile && isDisabled===false){
           forgotPassword(mobileData.mobile,mobileData.countryCode,setMessage,setOpen)
+          setIsDisabled(true);
+          // Disable the button for 2 minutes (120,000 milliseconds)
+          setTimeout(() => {
+            setIsDisabled(false);
+          }, 120000);
         }
     }
 
@@ -357,8 +365,17 @@ const EyeField = styled(FormControl)`
     </NameField>
 
     <div style={{textAlign:"center",marginTop:"10px"}}>
-      <Link onClick={forgotPasswordHandler} underline="none">Forgot Password?</Link>
-      </div>
+    <Link
+        onClick={forgotPasswordHandler}
+        underline="none"
+        style={{
+          pointerEvents: isDisabled ? "none" : "auto",
+          color: isDisabled ? "gray" : "blue",
+          cursor: isDisabled ? "not-allowed" : "pointer",
+        }}
+      >
+        Forgot Password?
+      </Link>      </div>
     </>
   }
   { showAllField===3&&
