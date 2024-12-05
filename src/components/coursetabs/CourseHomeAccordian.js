@@ -11,7 +11,9 @@ import ClassReferenceQuestionTab from "../coursetabs/ModuleTabQuestionClassRefer
 import { CourseContext } from '../../contexts/CourseContext';
 import SchoolIcon from '@material-ui/icons/School';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { toPng } from 'html-to-image';
+import sendFiles from "../../utils/sendFiles"
+import Popup from "../firdous/Popup";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     // width: '100%',
@@ -71,6 +73,9 @@ const CourseHomeAccordion = () => {
   const [expanded, setExpanded] = useState('panel3');
   const [announcement, setAnnouncement] = useState([]);
   const [open, setOpen] = useState(false);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [message, setMessage] = useState('');
+
 
   // const handleExpand = (value) => {
   //   if (expanded) {
@@ -210,21 +215,13 @@ const CourseHomeAccordion = () => {
   },[announcement, course])
   
 
-  const handleDownload = (divData) => {
-    if (divData === null) {
-      return;
+  const handleDownload = async() => {
+    const data = await sendFiles(user?.selectedUser?.id);
+    console.log(data);
+    if (data.status) {
+     setMessage(data.message)
+     setPopupOpen(true)
     }
-
-    toPng(divData)
-      .then((dataUrl) => {
-        const link = document.createElement('a');
-        link.href = dataUrl;
-        link.download = 'div-image.png';
-        link.click();
-      })
-      .catch((err) => {
-        console.error('Oops, something went wrong!', err);
-      });
   };
 
   return (
@@ -357,8 +354,7 @@ const CourseHomeAccordion = () => {
                 />   
                  <Button
                       variant='contained' style={{  margin: '10px', textTransform: 'none', textAlign: "center" }} color='primary'
-                      onClick={() =>handleDownload(data.html)}>
-                    
+                      onClick={() =>handleDownload()}>
                       Download
                     </Button>
                     </div>           
@@ -395,7 +391,8 @@ const CourseHomeAccordion = () => {
         </AccordionDetails>
       </Accordion>
       }
-      
+            <Popup heading={"PeaceRadio"} message={message} open={popupOpen} setOpen={setPopupOpen} noClose={true}/>
+
     </div>
   );
 };

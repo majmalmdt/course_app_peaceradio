@@ -19,6 +19,7 @@
     "GET_DISTRICT":"/district",
     "GET_PANCHAYAT":"/panchayat/",
     "SEND_CERTIFICATE":"/share-certificate",
+    "SEND_FILES":"/share-help-content",
     "GENERAL_FAQ":"/general-faq",
     "CHECK_USER":"/check-user",
     "SUBMIT_LATE_EXAM":"/submit-late-exam-request",
