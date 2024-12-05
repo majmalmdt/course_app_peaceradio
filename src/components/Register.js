@@ -292,9 +292,9 @@ const EyeField = styled(FormControl)`
         <CustomTextField size="small" label="Enter Age" placeholder="വയസ്സ്" onChange={(value)=>{handleInputChange(value,"age")
         }} value={personalData.age} />
       </NameField>
-      <NameField>
+      {/* <NameField>
       <DOBField onChange={handleInputChange} value={personalData.dob} ageValue={personalData.age} />
-      </NameField>
+      </NameField> */}
       <NameField>
         <DistrictField onChange={handleInputChange} value={personalData.district_id} />
       </NameField>
