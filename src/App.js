@@ -15,6 +15,8 @@ import ScrollToTop from './ui/ScrollToTop';
 import  homePage  from './utils/homePage';
 import AddMembers from './components/firdous/AddMembers';
 import DashBoard from './components/DashBoard';
+import Playlist from './components/Playlist';
+import PlaylistPage from './components/PlaylistPage';
 import MainPage from './components/MainPage';
 import LoginPage from './components/LoginPage';
 import Snackbar from "@material-ui/core/Snackbar";
@@ -79,6 +81,8 @@ function App() {
                 <Route path="/profile/edit/:userId" element={<EditProfile />} />
                 <Route path="/course/examPage/:courseId" element={<ExamPage/>}/>
                 <Route path='dashboard' element={<DashBoard />} />
+                <Route path='playlist' element={<Playlist />} />
+                <Route path="/playlist/:courseId" element={<PlaylistPage/>}/>
                 <Route path="/course/video/:moduleId" element={<YouTubeDialog />}/>
                   {/* <Route path="/membercourselist" element={<MemberCourseList />} />
                   <Route path="/somepage" element={<Somepage />} />

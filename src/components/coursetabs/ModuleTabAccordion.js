@@ -26,6 +26,8 @@ import CardMedia from '@mui/material/CardMedia';
 import {  Button} from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 import getCertificate from '../../utils/certificate';
+import sendCertificate from "../../utils/sendCertificate"
+
 import Popup from '../firdous/Popup';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -154,9 +156,7 @@ const AccordionDetails = withStyles((theme) => ({
 }))(MuiAccordionDetails);
 
 const ModuleTabAccordion = () => {
-  const [vidOpen, setVidOpen] = useState(false);
-  const [videoId, setVideoId] = useState(''); // Replace with your default videoId if needed
-
+  
   const handleVidOpen = (id) => {
    navigate(`/course/video/${id}`);
   };
@@ -172,6 +172,7 @@ const ModuleTabAccordion = () => {
   const {course} = useContext(CourseContext);
   const [certificate,setCertificate]=useState("")
   const [message,setMessage]=useState("")
+  const [isExamPopup,setIsExamPopup]=useState(false);
   const navigateToExamPage = () => {
     navigate(`/course/examPage/${moduleId}`);
 } 
@@ -179,19 +180,16 @@ const ModuleTabAccordion = () => {
     setMessage(examType+" എക്സാം ആരംഭിക്കാൻ പോവുകയാണ്. 2 മണിക്കൂർ ആണ് പരീക്ഷ. പരീക്ഷ തുടങ്ങാൻ start ക്ലിക്ക് ചെയ്യുക")
     setModuleId(id)
     setOpen(true);
+    setIsExamPopup(true)
   };
-  const handleVidClose = () => setVidOpen(false);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
   const handleChange = (panel, index) => async(event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
   const loadModule = async (index) => {
     const data= await moduleTabFetch(index,user?.selectedUser?.id);
-    setModule(data.data);
+    setModule(data.data.questions);
   }
 
   const { player, setPlayer } = useContext(PlayerContext);
@@ -221,14 +219,16 @@ const ModuleTabAccordion = () => {
     // setPlaying(true);
   }
 
-  const videoHandleOpen = (e,link) => {
-    e.stopPropagation();
-    window.open(link, '_blank');
-  };
+  const sendCertificateHandler=async()=>{
+    const res=await sendCertificate(course.result.course_entrollment_id)
+    if(res.status){
+      setMessage(res.message)
+      setOpen(true)
+      setIsExamPopup(false)
+    }
+  }
 
-  const videoHandleClose = () => {
-    setVideoPlay(false);
-  };
+  
   useEffect(()=>{
 
     const certificateData=async()=>{
@@ -327,7 +327,7 @@ const ModuleTabAccordion = () => {
               return <Menu classes={classes} data={course} label="Feedback" fn={handleChange} abc={expanded} idd={"a"+index} />
             }
             if(cl.module_type==="certificate"){
-              return  <Menu classes={classes} label="Certificate" fn={handleChange} abc={expanded} idd={"a"+index} data={course} />
+              return  <Menu classes={classes} label="Certificate" fn={handleChange} abc={expanded} idd={"a"+index} data={course} handleClickOpen={sendCertificateHandler} />
 
             }
             
@@ -380,7 +380,7 @@ const ModuleTabAccordion = () => {
           }
           {
              (
-              <Menu classes={classes} label="Certificate" fn={handleChange} abc={expanded} idd="a101" data={course} />
+              <Menu classes={classes} label="Certificate" fn={handleChange} abc={expanded} idd="a101" data={course} handleClickOpen={sendCertificateHandler} />
             )
           }
           {/* <Dialog
@@ -408,7 +408,7 @@ const ModuleTabAccordion = () => {
           <Button onClick={navigateToExamPage} type="submit">Start</Button>
         </DialogActions>
       </Dialog> */}
-      <Popup open={open} message={message} setOpen={setOpen} onSuccessHandler={navigateToExamPage}/>
+      <Popup open={open} message={message} setOpen={setOpen} onSuccessHandler={isExamPopup?navigateToExamPage:()=>{}}/>
       </div>
     )
 }

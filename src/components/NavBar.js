@@ -123,9 +123,13 @@ function NavBar() {
           )}
           <div className={classes.grow} />
           
-          <Box sx={{ mx: 1, fontSize: 20 }}>
-            {user.selectedUser?.name ? `${user.selectedUser?.name.toUpperCase()}`:''} 
-            {user.selectedUser?.roll_number? `(${user.selectedUser?.roll_number})`:''}
+          <Box sx={{ mx: "3px", fontSize: 16 }}>
+            {user.selectedUser?.name
+              ? `${user.selectedUser.name.substring(0, 10).toUpperCase()}${
+                  user.selectedUser.name.length > 10 ? '...' : ''
+                }`
+              : ''}
+            {user.selectedUser?.roll_number ? ` (${user.selectedUser.roll_number})` : ''}
           </Box>
           {user?.selectedUser ? <Modal />:<></>}
         </Toolbar>

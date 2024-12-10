@@ -25,7 +25,6 @@ import UploadFields from "../fields/UploadFields"
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import Popup from "../firdous/Popup";
 import courseUnEnroll from "../../utils/courseUnEnroll"
-import sendCertificate from "../../utils/sendCertificate"
 import courseReset from "../../utils/courseReset"
 import { useNavigate } from 'react-router-dom';
 import CertificateCapture from "./Certificate";
@@ -358,7 +357,7 @@ const Menu = (props) => {
               variant='contained'
               style={{ margin: '10px', textTransform: 'none', alignSelf: 'center', backgroundColor: '#00A881', color: "white" }}
               color='secondary'
-              onClick={() => sendCertificate(props.data.id)}
+              onClick={() => props.handleClickOpen()}
             >
               Get Certificate
             </Button>

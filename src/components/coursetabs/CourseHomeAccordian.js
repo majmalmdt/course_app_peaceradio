@@ -169,7 +169,7 @@ const CourseHomeAccordion = () => {
       const data = await moduleTabFetch(module_id, user?.selectedUser?.id);
       
       setActiveExam({
-        questions: data.data,
+        questions: data.data.questions,
         reference,
         id: module_id,
         module_no,
@@ -189,7 +189,7 @@ const CourseHomeAccordion = () => {
   if(course?.course_end_time){
     const module = course.modules.find(item => item.examstatus === "notAnswered");
     const data= await moduleTabFetch(module?.module_id,user?.selectedUser?.id);
-      setActiveExam({questions:data.data,reference:module?.reference,id:module?.module_id,module_no:module?.module_no,class_name:module?.class_name,moduleDetails:module})
+      setActiveExam({questions:data.data.questions,reference:module?.reference,id:module?.module_id,module_no:module?.module_no,class_name:module?.class_name,moduleDetails:module})
       return module;
   }
   else{
@@ -199,7 +199,7 @@ const CourseHomeAccordion = () => {
     
     if (today >= startDate && today <= endDate) {
       const data= await moduleTabFetch(module.module_id,user?.selectedUser?.id);
-      setActiveExam({questions:data.data,reference:module.reference,id:module.module_id,module_no:module?.module_no,class_name:module.class_name,moduleDetails:module})
+      setActiveExam({questions:data.data.questions,reference:module.reference,id:module.module_id,module_no:module?.module_no,class_name:module.class_name,moduleDetails:module})
       return module;
     }
   }

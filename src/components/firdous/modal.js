@@ -10,7 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import photo from '../../files/Peaceradio-logo.png';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-
+import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 // function rand() {
 //   return Math.round(Math.random() * 20) - 10;
 // }
@@ -70,6 +70,9 @@ export default function SimpleModal() {
   const navigateToDashboard = () => {
     history('/dashboard');
   }
+  const navigateToPlaylist = () => {
+    history('/playlist');
+  }
   const signOut = () => {
     setUser({ memberList:[], selectedUser: 0 })
     localStorage.removeItem('token');
@@ -90,10 +93,21 @@ export default function SimpleModal() {
                 <DashboardIcon />
               </Avatar>
             </ListItemIcon>
-            <ListItemText primary="DashBoard" />
+            <ListItemText primary="Dashboard" />
           </ListItem>
           <Divider />
         </div>
+        {/* <div>
+          <ListItem button onClick={() => {navigateToPlaylist(); handleClose()}}>
+            <ListItemIcon>
+              <Avatar className={classes.avatr}>
+                <PlaylistPlayIcon />
+              </Avatar>
+            </ListItemIcon>
+            <ListItemText primary="Playlist" />
+          </ListItem>
+          <Divider />
+        </div> */}
       <List component="nav" aria-label="main mailbox folders">
 
         {/* <div style={{ borderRadius: '20px', backgroundColor: "#E0FFFF" }}> */}

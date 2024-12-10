@@ -69,7 +69,7 @@ export default function ExamPage() {
         start();
       }
       else{
-        setMessage("താങ്കൾ പൊതുപരീക്ഷ നേരത്തെ പൂർത്തീകരിച്ചിട്ടുണ്ട്. ഒരിക്കൽ മാത്രമേ പൊതുപരീക്ഷക്ക് ഉത്തരമയക്കാൻ സാധിക്കുകയുള്ളൂ.")
+        setMessage(examRes.message)
         setOpen(true)
       }
 
