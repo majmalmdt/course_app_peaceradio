@@ -97,7 +97,7 @@ export default function SimpleModal() {
           </ListItem>
           <Divider />
         </div>
-        {/* <div>
+        <div>
           <ListItem button onClick={() => {navigateToPlaylist(); handleClose()}}>
             <ListItemIcon>
               <Avatar className={classes.avatr}>
@@ -107,7 +107,7 @@ export default function SimpleModal() {
             <ListItemText primary="Playlist" />
           </ListItem>
           <Divider />
-        </div> */}
+        </div>
       <List component="nav" aria-label="main mailbox folders">
 
         {/* <div style={{ borderRadius: '20px', backgroundColor: "#E0FFFF" }}> */}

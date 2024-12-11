@@ -38,10 +38,11 @@ function PlaylistCourse({ course, handleEnroll }) {
   const classes = useStyles();
   const history = useNavigate();
 
+  
   const handleCourseClick = () => {
-    if (course.is_enrolled !== '0') {
+   
       history(`/playlist/${course.id}`);
-    }
+    
   };
 
   return (

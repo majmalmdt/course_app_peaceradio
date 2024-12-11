@@ -5,6 +5,7 @@
     "FORGOT_PASSWORD_API_URI": "/forget-password",
     "HOME_API_URI": "/home",
     "COURSE_API_URI": "/members-course-list/",
+    "COURSE_PLAYLIST_API_URI": "/members-course-playlist/",
     "ENTROLL_API_URI": "/members-course-entroll",
     "ADD_MEMBER_API_URI": "/members-store",
     "PAGE_LOAD_API_URI": "register/getRegisteredCandidatesData.php",

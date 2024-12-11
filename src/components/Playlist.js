@@ -54,7 +54,6 @@ export default function Playlist () {
   const { user } = useContext(UserContext);
   const [message,setMessage]=useState("");
   const [isSuccess,setIsSuccess] = useState(false);
-  const [open, setOpen] = useState(false);
   const [severity, setSeverity]=useState("");
   const [ courses, setCourses ] = useState([]);
   const [visibleGroups, setVisibleGroups] = useState({});
