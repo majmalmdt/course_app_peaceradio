@@ -75,6 +75,7 @@ const CourseHomeAccordion = () => {
   const [open, setOpen] = useState(false);
   const [popupOpen, setPopupOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false);
 
 
   // const handleExpand = (value) => {
@@ -216,12 +217,22 @@ const CourseHomeAccordion = () => {
   
 
   const handleDownload = async() => {
-    const data = await sendFiles(user?.selectedUser?.id);
-    console.log(data);
-    if (data.status) {
-     setMessage(data.message)
-     setPopupOpen(true)
-    }
+      console.log(course?.course_calender[0]?.help_content_id)
+      if(course?.course_calender[0]?.help_content_id && isDisabled===false){
+        const data = await sendFiles(course?.course_calender[0]?.help_content_id);
+        if (data.status) {
+         setMessage(data.message)
+         setPopupOpen(true)
+         setIsDisabled(true);
+        }else{
+          setMessage(data.message)
+          setOpen(true)
+        }
+        // Disable the button for 2 minutes (120,000 milliseconds)
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 120000);
+      }
   };
 
   return (
@@ -354,8 +365,8 @@ const CourseHomeAccordion = () => {
                 />   
                  <Button
                       variant='contained' style={{  margin: '10px', textTransform: 'none', textAlign: "center" }} color='primary'
-                      onClick={() =>handleDownload()}>
-                      Download
+                      onClick={() =>handleDownload()} disabled={isDisabled}>
+                      Send To WhatsApp
                     </Button>
                     </div>           
               </AccordionDetails>

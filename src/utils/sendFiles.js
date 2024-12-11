@@ -17,9 +17,7 @@ const sendFiles = async (course_id) => {
             return (response.data)
     }
     catch(error){
-        console.log(error)
-        throw error;    
-    }
+        return error.response.data;    }
 }
 
 export default sendFiles;
