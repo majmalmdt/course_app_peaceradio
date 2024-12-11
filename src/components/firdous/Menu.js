@@ -478,7 +478,7 @@ const Menu = (props) => {
   if (props.label === "Model Exam") {
     return (
       <>
-        <Accordion onChange={props.fn(props.idd)} expanded={props.abc === props.idd} elevation={2}>
+        <Accordion onChange={props.fn(props.idd)} expanded={props.abc === props.idd} elevation={2} disabled={props.isDisabled}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon className={props.classes.expandIcon} />}
             aria-controls=""
@@ -507,7 +507,7 @@ const Menu = (props) => {
   if (props.label === "Final Exam") {
     return (
       <>
-        <Accordion onChange={props.fn(props.idd)} expanded={props.abc === props.idd} elevation={2}>
+        <Accordion onChange={props.fn(props.idd)} expanded={props.abc === props.idd} elevation={2} disabled={props.isDisabled}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon className={props.classes.expandIcon} />}
             aria-controls=""

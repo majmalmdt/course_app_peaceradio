@@ -74,7 +74,7 @@ export default function ExamPage() {
       }
 
       const quesRes = await moduleTabFetch(courseId, user?.selectedUser?.id);
-      setQuestions(quesRes.data.length > 0 ? quesRes.data : []);
+      setQuestions(quesRes.data.questions.length > 0 ? quesRes.data.questions : []);
     };
 
     initializeExam();

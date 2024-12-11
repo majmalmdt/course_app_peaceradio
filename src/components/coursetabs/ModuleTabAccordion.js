@@ -314,11 +314,11 @@ const ModuleTabAccordion = () => {
             if(cl.module_type==="Model"){
               // setMessage("Model എക്സാം ആരംഭിക്കാൻ പോവുകയാണ്. 2 മണിക്കൂർ ആണ് പരീക്ഷ. പരീക്ഷ തുടങ്ങാൻ start ക്ലിക്ക് ചെയ്യുക")
               // setOpen(true)
-              return  <Menu classes={classes} label="Model Exam" fn={handleChange} abc={expanded} idd={"a"+index} handleClickOpen={()=>handleClickOpen(cl.module_id,'Model')} />
+              return  <Menu classes={classes} label="Model Exam" fn={handleChange} abc={expanded} idd={"a"+index} handleClickOpen={()=>handleClickOpen(cl.module_id,'Model')} isDisabled={isDisabled(cl.start_time)} />
 
             }
             if(cl.module_type==="Final"){
-              return <Menu classes={classes} label="Final Exam" fn={handleChange} abc={expanded} idd={"a"+index} handleClickOpen={()=>handleClickOpen(cl.module_id,'Final')} />
+              return <Menu classes={classes} label="Final Exam" fn={handleChange} abc={expanded} idd={"a"+index} handleClickOpen={()=>handleClickOpen(cl.module_id,'Final')} isDisabled={isDisabled(cl.start_time)} />
             }
             if(cl.module_type==="Review" || cl.module_type==="Parent Review"){
               return <Menu classes={classes} label="Review" fn={handleChange} abc={expanded} idd={"a"+index} course={course} moduleDetails={cl}/>
