@@ -166,7 +166,7 @@ const HelpTab = () => {
       <Faq id='h1' handleChange={handleChange} expanded={expanded} faqData={[...(course?.faqs || []), ...(course?.generalOptions?.FAQ || [])]} />
       <Menu label="Study Planner" classes={classes} fn={handleChange} abc={expanded} isEdit={course?.psp?.[0]?.time} idd="a2" time={time} type={type} setTime={setTime} setType={handleTypeChange} onSubmit={submitPSP} open={open} message={message} setOpen={setOpen} />
       <LateExamRequest id='h2' handleChange={handleChange} expanded={expanded} course={course} />
-      <Sample id='h3' label='Testimonials' handleChange={handleChange} expanded={expanded} data={course.testimonials} />
+      <Sample id='h3' label='Testimonials' handleChange={handleChange} expanded={expanded} data={[...(course?.testimonials || []), ...(course?.generalOptions?.Testimonial || [])]} />
       <Menu classes={classes} data={course} label="Doubt Submission" fn={handleChange} abc={expanded} idd="a3" doubtData={course?.doubts} handleDoubtClearance={handleDoubtClearance} />
       {course.end_time && new Date(course.end_time) < new Date() && (
         <Menu
