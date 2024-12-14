@@ -7,12 +7,16 @@ import getDistrict from "../../utils/getDistrict";
 import getPanchayat from "../../utils/getPanchayat";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-export default function DistrictField({ value, onChange }) {
+export default function DistrictField({ value, onChange, panchayat_id }) {
   const [district, setDistrict] = useState({ id: value || 0, district_id: 0 });
-  const [panchayat, setPanchayat] = useState(null);
+  const [panchayat, setPanchayat] = useState(panchayat_id || 0);
   const [districtList, setDistrictList] = useState([]);
   const [panchayatList, setPanchayatList] = useState([]);
 
+  useEffect(() => {
+    setDistrict({ id: value || 0, district_id: 0 });
+    setPanchayat(panchayat_id || 0);
+  }, [value, panchayat_id]);
   useEffect(() => {
     const fetchDistricts = async () => {
       try {

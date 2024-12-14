@@ -68,9 +68,9 @@ export default function EditProfile() {
   });
   const [sameAddress,setSameAddress]=useState(false);
 
-
   useEffect(() => {
     setPersonalData({ ...personalData, ...user?.selectedUser });
+
   }, [user]);
 
   const handleInputChange = (value, key, isCap = false) => {
@@ -191,7 +191,7 @@ export default function EditProfile() {
           <DOBField onChange={handleInputChange} value={personalData.dob} ageValue={personalData.age} />
         </NameField> */}
         <NameField>
-          <DistrictField onChange={handleInputChange} value={personalData.district_id} />
+          <DistrictField onChange={handleInputChange} value={personalData.district_id} panchayat_id={personalData.panchayat_id} />
         </NameField>
         <NameField>
           <CustomTextField type="number" size="small" label="Ward Number" placeholder="വാർഡ് നമ്പർ" onChange={(value) => handleInputChange(value, "ward")} value={personalData.ward} />

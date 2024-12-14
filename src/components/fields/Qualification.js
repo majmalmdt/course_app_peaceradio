@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 const Qualification=(props)=>{
     const [qualification,setQualification]=useState(props.value? props.value : 0)
     const [qualificationList,setQualificationList]=useState([])
+
     useEffect(()=>{
         if(props.age>15){
             setQualificationList([
@@ -35,6 +36,9 @@ const Qualification=(props)=>{
             ])
         }
     },[props.age])
+    useEffect(()=>{
+        setQualification(props.value? props.value : 0)
+    },[props.value])
     const handleChange = (event) => {
         setQualification(event.target.value);
         props.onChange(event.target.value)
