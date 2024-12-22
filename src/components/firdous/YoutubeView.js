@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const YouTubeDialog = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [initialPlay, setInitialPlay] = useState(false);
   const { moduleId } = useParams();
   const playerRef = useRef(null);
   const {course} = useContext(CourseContext);
@@ -50,6 +51,7 @@ const YouTubeDialog = () => {
 
   const handleThumbnailClick = () => {
     setIsPlaying(true);
+    setInitialPlay(true)
   };
 
   // Handle fullscreen mode
@@ -66,10 +68,14 @@ const YouTubeDialog = () => {
     }
   };
 
+  const handleOverlayClick = () => {
+    setIsPlaying(!isPlaying)
+  };
+
   return (
     <div>
     <Box sx={{ width: '100%', marginTop: '4rem' }}>
-      {!isPlaying ? (
+      {!isPlaying && !initialPlay ? (
         <Box
           sx={{
             position: 'relative',
@@ -93,7 +99,8 @@ const YouTubeDialog = () => {
           />
         </Box>
       ) : (
-        <ReactPlayer
+        <>
+        {/* <ReactPlayer
           ref={playerRef}
           url={`https://www.youtube.com/watch?v=${module.reference.class_video_link}`}
           controls={true}
@@ -102,7 +109,37 @@ const YouTubeDialog = () => {
           // height="90vh" // Increased height
           style={{ borderRadius: '8px', overflow: 'hidden', paddingTop: '20px' }}
           onClick={handleFullscreen}
-        />
+        /> */}
+        <div style={{ position: "relative", width: "100%" }}>
+            <ReactPlayer
+              id="youtubeVideo"
+              ref={playerRef}
+              url={`https://www.youtube.com/watch?v=${module.reference.class_video_link}`}
+              controls={true}
+              playing={isPlaying}
+              width="100%"
+              style={{ borderRadius: "8px", overflow: "hidden", paddingTop: "20px" }}
+              onClick={handleFullscreen}
+            />
+            {/* Overlay to block YouTube click */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 1,
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                handleOverlayClick();
+              }}
+            >
+            </div>
+        </div>
+        </>
       )}
     </Box>
     <div style={{ margin: '20px' }}>

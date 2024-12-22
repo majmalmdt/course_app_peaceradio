@@ -58,17 +58,39 @@ const PlaylistPage = () => {
     };
   }, [currentIndex, course.modules]);
 
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (audio && isPlaying) {
-      const audioUrl = course.modules[currentIndex]?.reference?.class_audio_url;
-      if (audioUrl) {
-        audio.src = audioUrl;
-        audio.currentTime = currentIndex === 0 ? 0 : resumeTime;
-        audio.play().catch(console.error);
+  // useEffect(() => {
+  //   const audio = audioRef.current;
+  //   if (audio && isPlaying) {
+  //     const audioUrl = course.modules[currentIndex]?.reference?.class_audio_url;
+  //     if (audioUrl) {
+  //       audio.src = audioUrl;
+  //       audio.currentTime = currentIndex === 0 ? 0 : resumeTime;
+  //       audio.play().catch(console.error);
+  //     }
+  //   }
+  // }, [currentIndex, isPlaying, resumeTime]);
+    // Handle audio source updates
+    useEffect(() => {
+      const audio = audioRef.current;
+      if (audio) {
+        const audioUrl = course.modules[currentIndex]?.reference?.class_audio_url;
+        if (audioUrl) {
+          audio.src = audioUrl;
+          audio.currentTime = 0; // Reset to the beginning for new audio
+        }
       }
-    }
-  }, [currentIndex, isPlaying, resumeTime]);
+    }, [currentIndex, course.modules]);
+  
+    // Start or resume playback
+    useEffect(() => {
+      const audio = audioRef.current;
+      if (audio && isPlaying) {
+        audio.play().catch((error) => {
+          console.error("Playback failed:", error);
+          setIsPlaying(false); // Stop playback if an error occurs
+        });
+      }
+    }, [isPlaying]);
 
   const playFromBeginning = () => {
     setCurrentIndex(0);

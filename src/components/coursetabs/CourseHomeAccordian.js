@@ -1,6 +1,6 @@
 import React, {useEffect, useState,useContext} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Accordion, AccordionDetails, AccordionSummary, Badge, Typography,Button } from '@material-ui/core';
+import { Accordion, AccordionDetails, AccordionSummary, Badge, Typography,Button, Fade, Avatar } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MailIcon from '@material-ui/icons/Mail';
 import AssignmentIcon from '@material-ui/icons/Assignment';
@@ -13,6 +13,10 @@ import SchoolIcon from '@material-ui/icons/School';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import sendFiles from "../../utils/sendFiles"
 import Popup from "../firdous/Popup";
+import VideocamIcon from '@material-ui/icons/Videocam';
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import { useNavigate } from 'react-router-dom';
+import { PlayerContext } from '../../contexts/PlayerContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,6 +67,16 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "center",
     color: theme.palette.primary.main,
   },
+  avatarPlay: {
+    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.primary.main,
+    // alignSelf: 'flex-end',
+    marginLeft: 'auto',
+    marginRight: theme.spacing(1),
+    transition: theme.transitions.create(["transform"], {
+      duration: theme.transitions.duration.short
+    })
+  },
 }));
 
 const CourseHomeAccordion = () => {
@@ -76,7 +90,7 @@ const CourseHomeAccordion = () => {
   const [popupOpen, setPopupOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
-
+  const navigate = useNavigate();
 
   // const handleExpand = (value) => {
   //   if (expanded) {
@@ -97,6 +111,25 @@ const CourseHomeAccordion = () => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const { player, setPlayer } = useContext(PlayerContext);
+
+  const handleVidOpen = (id) => {
+    navigate(`/course/video/${id}`);
+   };
+
+  const handlePlay = (c, e) => {
+    // e.preventDefault();
+    e.stopPropagation();
+    setPlayer({
+      ...player,
+      showPlayer: true,
+      playing: true,
+      loadedClass: c,
+      src:c.reference.class_audio_url
+    });
+    // setPlaying(true);
+  }
   const activeCourseEvent=()=>{
     
     if(course?.featured_type==="Final" || (course?.course_end_time && activeExam.module_type==="Final")){
@@ -130,11 +163,40 @@ const CourseHomeAccordion = () => {
             {/* <Typography className={classes.secondaryHeading}>
                           You are currently not an owner
                       </Typography> */}
+            <div style={{display:"flex",justifyContent:"end"}}>
+            
+                <Fade in={expanded === `panel3`} timeout={500}>
+                  <div style={{ paddingLeft: '5rem' }}>
+                    <Avatar className={classes.avatarPlay}>
+                      <Button variant="contained" color="primary" onClick={() => handleVidOpen(activeExam.id)}>
+                        <VideocamIcon />
+                      </Button>
+                    </Avatar>
+                  </div>
+                </Fade>
+                <Fade in={expanded === `panel3`} timeout={500}>
+                  <div style={{paddingLeft:'20rem'}}>
+                    <Avatar onClick={(e) => handlePlay(activeExam,e)} className={classes.avatarPlay}>
+                      <PlayArrowIcon />
+                    </Avatar>
+                  </div>
+                </Fade>
+            </div>
           </AccordionSummary>
-          <AccordionDetails>
+          {/* <AccordionDetails>
           <ClassReferenceQuestionTab course={course} module={activeExam.questions} moduleId={activeExam.id} reference={activeExam.reference} isLoading={!activeExam}  moduleDetails={activeExam.moduleDetails}/>
     
-          </AccordionDetails>
+          </AccordionDetails> */}
+          <AccordionDetails>
+        <ClassReferenceQuestionTab
+          course={course}
+          module={activeExam.questions}
+          moduleId={activeExam.id}
+          reference={activeExam.reference}
+          isLoading={!activeExam}
+          moduleDetails={activeExam.moduleDetails}
+        />
+      </AccordionDetails>
         </Accordion>)
     }
     if(course?.featured_type==="Assignment"){
@@ -275,6 +337,8 @@ const CourseHomeAccordion = () => {
                 width= "300px"
                 height= "300px"
                 />}
+                <br/>
+                <br/>
             <Typography className={classes.detailText} style={{fontWeight:'bold'}}>
             {data.title}
             </Typography>
