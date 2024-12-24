@@ -163,10 +163,9 @@ const CourseHomeAccordion = () => {
             {/* <Typography className={classes.secondaryHeading}>
                           You are currently not an owner
                       </Typography> */}
-            <div style={{display:"flex",justifyContent:"end"}}>
             
                 <Fade in={expanded === `panel3`} timeout={500}>
-                  <div style={{ paddingLeft: '5rem' }}>
+                  <div style={{paddingLeft:'3rem'}}>
                     <Avatar className={classes.avatarPlay}>
                       <Button variant="contained" color="primary" onClick={() => handleVidOpen(activeExam.id)}>
                         <VideocamIcon />
@@ -175,13 +174,12 @@ const CourseHomeAccordion = () => {
                   </div>
                 </Fade>
                 <Fade in={expanded === `panel3`} timeout={500}>
-                  <div style={{paddingLeft:'20rem'}}>
+                  {/* <div> */}
                     <Avatar onClick={(e) => handlePlay(activeExam,e)} className={classes.avatarPlay}>
                       <PlayArrowIcon />
                     </Avatar>
-                  </div>
+                  {/* </div> */}
                 </Fade>
-            </div>
           </AccordionSummary>
           {/* <AccordionDetails>
           <ClassReferenceQuestionTab course={course} module={activeExam.questions} moduleId={activeExam.id} reference={activeExam.reference} isLoading={!activeExam}  moduleDetails={activeExam.moduleDetails}/>
