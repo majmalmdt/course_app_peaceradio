@@ -148,7 +148,7 @@ const YouTubeDialog = () => {
           <Button onClick={() => setFontSiz(fontSiz + 1)}>+</Button>
           <Button onClick={() => setFontSiz(fontSiz - 1)}>-</Button>
         </ButtonGroup>
-        <Typography className={classes.detailText} style={{ fontSize: `${fontSiz}px` }}>{module.reference?.reference_text? module.reference?.reference_text?.replace(removeHtml, '').replace(removeSlashNR, '$1'):"ഈ ക്ലാസിൻ്റെ റഫറൻസ് ഇപ്പോൾ ലഭ്യമല്ല"}</Typography>
+        <Typography className={classes.detailText} style={{ fontSize: `${fontSiz}px` }}>{module.reference?.reference_text? module.reference?.reference_text?.replace(removeHtml, '').replace(removeSlashNR, '$1').replace(/&nbsp;/g, ''):"ഈ ക്ലാസിൻ്റെ റഫറൻസ് ഇപ്പോൾ ലഭ്യമല്ല"}</Typography>
       </div>
 
     </div>
