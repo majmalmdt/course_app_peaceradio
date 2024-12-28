@@ -102,7 +102,7 @@ function NavBar() {
               >
                 <ArrowBackIcon />
               </IconButton>
-              <Typography color="inherit">Exit</Typography>
+              {/* <Typography color="inherit">Exit</Typography> */}
             </>
           )}
           {pathname === "/home" ? (
